@@ -2,38 +2,84 @@
 set BBDown=".\BBDown.exe"
 set ffmpeg=".\ffmpeg.exe"
 
-echo BBDOWNÏÂÔØ½Å±¾
-echo made by Tensin
+echo BBDOWNä¸‹è½½è„šæœ¬
+echo verson:0.2_0421
+echo made by TenSin
+echo Github:https://github.com/SkyDream01/BBDOWN_BAT
 setlocal enabledelayedexpansion
 IF EXIST "BBDown.data" (
-    set /p url=ÇëÊäÈëÊÓÆµbvºÅ»òavºÅ:
-	echo 1.Ä¬ÈÏ
-	echo 2.½öÏÂÔØÊÓÆµ
-	echo 3.½öÏÂÔØÒôÆµ
-	echo 4.½öÏÂÔØ×ÖÄ»
-	echo 5.½»»¥Ê½Ñ¡ÔñÇåÎú¶È
-	echo 6.Hires×ÊÔ´ÏÂÔØ£¨by£ºDRV£©
-    set /p opt=OptionsÑ¡Ôñ£¨´¿Êı×Ö£©:
-	echo ÕıÔÚÏÂÔØ...
+    IF EXIST "Download" (
+	
+	set /p url=è¯·è¾“å…¥è§†é¢‘bvå·æˆ–avå·:
+	
+	echo èœå•ï¼š
+	echo 0.è‡ªè¡Œè¾“å…¥
+	echo 1.é»˜è®¤
+	echo 2.ä»…ä¸‹è½½è§†é¢‘
+	echo 3.ä»…ä¸‹è½½éŸ³é¢‘
+	echo 4.ä»…ä¸‹è½½å­—å¹•
+	echo 5.äº¤äº’å¼é€‰æ‹©æ¸…æ™°åº¦
+	echo 6.Hiresèµ„æºä¸‹è½½ï¼ˆbyï¼šDRVï¼‰
+	echo 7.æå–å­—å¹•
+	
+	
+    set /p opt=Optionsé€‰æ‹©ï¼ˆçº¯æ•°å­—ï¼‰:
+	echo æ­£åœ¨æ‰§è¡Œ...
+	
+	IF !opt!==0 (
+		start "" ".\help.txt"
+		set /p code=bbdown !url! 
+		%BBDown% !code! !url!	
+	)
 	IF !opt!==1 (%BBDown% !url!)
 	IF !opt!==2 (%BBDown% --video-only !url!)
 	IF !opt!==3 (%BBDown% --audio-only !url!)
 	IF !opt!==4 (%BBDown% --sub-only !url!)
 	IF !opt!==5 (%BBDown% -ia !url!)
 	IF !opt!==6 (%BBDown% --audio-only !url!
-    	echo ×ÊÔ´ÏÂÔØÍê³É
-    	echo ÕıÔÚ·â×°FLACÎÄ¼ş...
+    	echo èµ„æºä¸‹è½½å®Œæˆ
+    	echo æ­£åœ¨å°è£…FLACæ–‡ä»¶...
    		for %%a in (*.m4a) do (
     	    %ffmpeg% -i "%%~na.m4a" -c copy "%%~na.flac"
  	   )
- 	    echo ·â×°Íê³É
- 	    echo ÕıÔÚÉ¾³ım4aÎÄ¼ş...
+ 	    echo å°è£…å®Œæˆ
+ 	    echo æ­£åœ¨åˆ é™¤m4aæ–‡ä»¶...
  	    del *.m4a)
-echo ÏÂÔØÍê³É
+	IF !opt!==7 (
+ 	    %BBDown% !url!
+		echo èµ„æºä¸‹è½½å®Œæˆ
+		echo æ­£åœ¨æå–å­—å¹•...
+		for %%a in (*.mp4) do (
+    	    %ffmpeg% -i "%%~na.mp4" -map 0:s:0 "%%~na.srt"
+			)
+		)
+	for %%a in (*.m4a) do (
+    	    move *.m4a .\Download\
+ 	   )
+	for %%a in (*.mp4) do (
+    	    move *.mp4 .\Download\
+ 	   )
+	for %%a in (*.srt) do (
+    	    move *.srt .\Download\
+ 	   )
+	for %%a in (*.flac) do (
+    	    move *.flac .\Download\
+		)
+echo ä¸‹è½½å®Œæˆ
+
+)ELSE (
+echo åˆ›å»ºDownloadæ–‡ä»¶å¤¹,å·²è‡ªåŠ¨é‡å¯
+md .\Download
+call BBDOWN_BAT.bat
+exit
+)
+
 ) ELSE (
-    echo Äú»¹Ã»ÓĞµÇÂ¼
-    echo ÇëÉ¨Ãè¶şÎ¬ÂëÒÔµÇÂ½ÄúµÄBÕ¾ÕËºÅ
+    echo æ²¡æœ‰ç™»å½•
+    echo è¯·æ‰«æäºŒç»´ç ä»¥ç™»é™†æ‚¨çš„Bç«™è´¦å·
     %BBDown% login
-    echo µÇÂ½Íê³É,Çë¹Ø±Õ²¢ÖØĞÂÔËĞĞ±¾½Å±¾
+    echo ç™»é™†å®Œæˆ,å·²è‡ªåŠ¨é‡å¯
+	call BBDOWN_BAT.bat
+	exit
 )
 pause
