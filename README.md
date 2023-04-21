@@ -8,4 +8,4 @@ BBDown：https://github.com/nilaoda/BBDown
 
 FFmpeg：https://github.com/FFmpeg/FFmpeg
 
-整合包：https://tensin.lanzouf.com/iuxCe0tlc2qb
+整合包：https://tensin.lanzouf.com/iu4Xy0tlrb3c
